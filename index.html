@@ -96,16 +96,16 @@
 
 
 
-  <meta name="description" content="You yu jiu hui bai bei!">
+  <meta name="description" content="Hello World!">
 <meta property="og:type" content="website">
 <meta property="og:title" content="lizhengshuwayne&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="lizhengshuwayne&#39;s Blog">
-<meta property="og:description" content="You yu jiu hui bai bei!">
+<meta property="og:description" content="Hello World!">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lizhengshuwayne&#39;s Blog">
-<meta name="twitter:description" content="You yu jiu hui bai bei!">
+<meta name="twitter:description" content="Hello World!">
 
 
 
@@ -353,8 +353,8 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lizhengshuwayne">
-      <meta itemprop="description" content="You yu jiu hui bai bei!">
-      <meta itemprop="image" content="/images/searchicon.png">
+      <meta itemprop="description" content="Hello World!">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-12 23:13:41" itemprop="dateModified" datetime="2019-04-12T23:13:41+08:00">2019-04-12</time>
+                <time title="修改时间：2019-05-09 19:49:40" itemprop="dateModified" datetime="2019-05-09T19:49:40+08:00">2019-05-09</time>
               
             
           </span>
@@ -447,7 +447,7 @@
       
         
           
-            <h2 id="about"><a href="#about" class="headerlink" title="about"></a>about</h2><p>心血来潮，用js写了一个脚本，用于发布公司产品，不用手动，<del>然而并没有什么卵用</del>很爽。</p>
+            <h2 id="about"><a href="#about" class="headerlink" title="about"></a>about</h2><p>自动化部署钉钉《连帆排班》前端工程的脚本。</p>
 <p>项目地址：<a href="https://github.com/lizhengshuwayne/lianfan-publisher" target="_blank" rel="noopener">https://github.com/lizhengshuwayne/lianfan-publisher</a></p>
 <h2 id="details"><a href="#details" class="headerlink" title="details"></a>details</h2><h3 id="dependencies"><a href="#dependencies" class="headerlink" title="dependencies"></a>dependencies</h3><ul>
 <li><p><a href="https://github.com/steelbrain/node-ssh" target="_blank" rel="noopener">node-ssh</a></p>
@@ -460,28 +460,23 @@
 <p>用于下载的js库。</p>
 </li>
 </ul>
-<h3 id="demands"><a href="#demands" class="headerlink" title="demands"></a>demands</h3><p>公司的项目由web上对应的打包工具，输出zip格式的压缩包的下载地址。</p>
-<p>对于文件名我做了特殊处理，输出的文件名带有时间戳， 即productName_YYYYMMDDHHss.zip。</p>
-<p>同时生成一份内容为当前最新包的名称的txt文件。</p>
-<p>之后只需要先下载txt文件，识别内容，取得最新包的filename，就可以下载对应的包了。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> filename=mobile_<span class="variable">%date:~0,4%</span><span class="variable">%date:~5,2%</span><span class="variable">%date:~8,2%</span><span class="variable">%time:~0,2%</span><span class="variable">%time:~3,2%</span>.zip</span><br><span class="line">7z a %filename% ./dist/*</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%filename%</span> &gt; ./dist/latest_filename.txt</span><br></pre></td></tr></table></figure>
-<p>然后连接ssh服务器，上传包于对应的tmp文件夹，执行shell命令， 解压包到对应发布目录并覆盖同名文件，到此发布完成。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip -o /var/lianfan/static/mobile_YYYYMMDDHHss.zip -d /var/lianfan/static/mobile/</span><br></pre></td></tr></table></figure>
-<h3 id="analysis"><a href="#analysis" class="headerlink" title="analysis"></a>analysis</h3><p>如果是第一次运行，需要初始化一些数据，登录打包网站的username:password, 连接对应ssh服务器的host、 username和password，生成.cache文件作为缓存, 方便下次使用。</p>
-<p>下次运行脚本可以选择是否重新初始化。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// init()</span></span><br><span class="line"><span class="keyword">const</span> answers = <span class="keyword">await</span> inquirer.prompt([</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">"input"</span>,</span><br><span class="line">        name: <span class="string">"host"</span>,</span><br><span class="line">        message: <span class="string">"input your remote ssh host: "</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">"input"</span>,</span><br><span class="line">        name: <span class="string">"username"</span>,</span><br><span class="line">        message: <span class="string">"input your remote ssh username: "</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">"input"</span>,</span><br><span class="line">        name: <span class="string">"password"</span>,</span><br><span class="line">        message: <span class="string">"input your remote ssh password: "</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">"input"</span>,</span><br><span class="line">        name: <span class="string">"psd"</span>,</span><br><span class="line">        message: <span class="string">"input your ci username and password (username:password): "</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]);</span><br><span class="line"><span class="keyword">const</span> answersStr = <span class="built_in">JSON</span>.stringify(answers);</span><br><span class="line">fs.writeFileSync(<span class="string">".cache"</span>, answersStr);</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// init ssh's host, username, password and ci's psd</span></span><br><span class="line"><span class="keyword">if</span> (fs.existsSync(<span class="string">".cache"</span>)) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;isChange&#125; = <span class="keyword">await</span> inquirer.prompt([</span><br><span class="line">        &#123;</span><br><span class="line">            type: <span class="string">"confirm"</span>,</span><br><span class="line">            name: <span class="string">"isChange"</span>,</span><br><span class="line">            message: <span class="string">"The ssh and ci's cache is exist. Change it ?"</span>,</span><br><span class="line">            <span class="keyword">default</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    ]);</span><br><span class="line">    <span class="keyword">if</span> (isChange) &#123;</span><br><span class="line">        <span class="keyword">await</span> init();</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>选择你需要发布的产品类型。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// choose which product is your wish</span></span><br><span class="line"><span class="keyword">const</span> &#123;product&#125; = <span class="keyword">await</span> inquirer.prompt([</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">"list"</span>,</span><br><span class="line">        name: <span class="string">"product"</span>,</span><br><span class="line">        choices: [<span class="string">"dashboard"</span>, <span class="string">"mobile"</span>, <span class="string">"pc"</span>, <span class="string">"pc_intern"</span>],</span><br><span class="line">        <span class="keyword">default</span>: <span class="string">"dashboard"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
-<p>通过下载解析latest_filename.txt文件，取得对应的zip包，放在.back目录下，方便版本追溯。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// download()</span></span><br><span class="line"><span class="keyword">const</span> content = fs.readFileSync(<span class="string">".cache"</span>, <span class="string">"utf8"</span>);</span><br><span class="line"><span class="keyword">const</span> &#123;psd&#125; = <span class="built_in">JSON</span>.parse(content.trim());</span><br><span class="line"><span class="keyword">await</span> download(</span><br><span class="line">    <span class="string">`http://ci.lianfan.net/job/numas/job/<span class="subst">$&#123;productMap[product]&#125;</span>/ws/<span class="subst">$&#123;pre&#125;</span><span class="subst">$&#123;filename&#125;</span>`</span>,</span><br><span class="line">    <span class="string">`./.back/<span class="subst">$&#123;product&#125;</span>`</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        headers: &#123;</span><br><span class="line">            Authorization: <span class="string">`Basic <span class="subst">$&#123;Buffer.<span class="keyword">from</span>(psd).toString(<span class="string">"base64"</span>)&#125;</span>`</span>, <span class="comment">// 类curl协议 Authorization:base64(username:password)</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下载记录最新zip包文件名的txt</span></span><br><span class="line"><span class="keyword">await</span> download(<span class="string">"latest_filename.txt"</span>, product, <span class="string">"dist/"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取最新zip包名称</span></span><br><span class="line"><span class="keyword">const</span> content = fs.readFileSync(<span class="string">`./.back/<span class="subst">$&#123;product&#125;</span>/latest_filename.txt`</span>, <span class="string">"utf8"</span>);</span><br><span class="line"><span class="keyword">const</span> filename = content.trim();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"get filename success!"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下载对应zip包</span></span><br><span class="line"><span class="keyword">await</span> download(filename, product);</span><br></pre></td></tr></table></figure>
-<p>连接远程服务器</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下载记录最新zip包文件名的txt</span></span><br><span class="line"><span class="keyword">const</span> cache = fs.readFileSync(<span class="string">".cache"</span>, <span class="string">"utf8"</span>);</span><br><span class="line"><span class="keyword">const</span> &#123;host, username, password&#125; = <span class="built_in">JSON</span>.parse(cache.trim());</span><br><span class="line"><span class="keyword">await</span> ssh.connect(&#123;</span><br><span class="line">    host,</span><br><span class="line">    username,</span><br><span class="line">    password,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>上传zip包并执行命令</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> ssh.putFile(<span class="string">`./.back/<span class="subst">$&#123;product&#125;</span>/<span class="subst">$&#123;filename&#125;</span>`</span>, <span class="string">`/var/lianfan/static/<span class="subst">$&#123;filename&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行shell命令</span></span><br><span class="line"><span class="keyword">await</span> ssh.execCommand(<span class="string">`unzip -o /var/lianfan/static/<span class="subst">$&#123;filename&#125;</span> -d /var/lianfan/static/<span class="subst">$&#123;product&#125;</span>/`</span>, &#123;<span class="attr">cwd</span>: <span class="string">"/"</span>&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><p>折腾了很久，学会了怎么用轮子拼装起来，做一个成熟的手推车。</p>
-<p>犹豫就会败北，岂可修。</p>
+<h3 id="demands"><a href="#demands" class="headerlink" title="demands"></a>demands</h3><p>手动部署前端工程很不方便，而且容易出现误操作。</p>
+<p>需要实现可自动化部署的脚本来简化工作内容。</p>
+<h3 id="analysis"><a href="#analysis" class="headerlink" title="analysis"></a>analysis</h3><p>第一次运行，需要初始化一些验证信息：打包服务器的username:password，部署服务器的host、 username和password。</p>
+<p>生成一份.cache文件保存验证信息, 方便下次使用。</p>
+<p>可重复输入命令行以多次覆盖验证信息。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn init-cache</span><br></pre></td></tr></table></figure>
+<p>从打包服务器下载最新版本的包，并上传到部署服务器备份。</p>
+<p>过程中，获取了当前上传时间，将最新的包重名为带有时间搓的文件名，如mobile_201901010000.zip。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn update-package</span><br></pre></td></tr></table></figure>
+<p>选择需要的版本进行发布。</p>
+<p>列出备份的不同版本包的文件名，并按照时间倒序排序，作为待选项让发布者自行选择。</p>
+<p>为了便于发布新版本或者还原到任意老版本，因此让发布者自行选择发布版本。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn publish-package</span><br></pre></td></tr></table></figure>
+<p>“选择对应版本发布前，需要确认是否发布选中的版本，如果不是，则重新选择版本。”</p>
+<p>此处可用递归实现。如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个getPackageNameAsync函数，首先选中版本，确认该版本则返回文件名，否则再次执行getPackageName操作。</span></span><br><span class="line"><span class="keyword">const</span> getPackageNameAsync = <span class="keyword">async</span> (packageNames) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;packageName&#125; = <span class="keyword">await</span> inquirer.prompt([</span><br><span class="line">        &#123;</span><br><span class="line">            type: <span class="string">"list"</span>,</span><br><span class="line">            name: <span class="string">"packageName"</span>,</span><br><span class="line">            message: <span class="string">"Which package will be published?"</span>,</span><br><span class="line">            <span class="keyword">default</span>: packageNames[<span class="number">0</span>],</span><br><span class="line">            choices: packageNames,</span><br><span class="line">        &#125;,</span><br><span class="line">    ]);</span><br><span class="line">    <span class="keyword">const</span> &#123;isSure&#125; = <span class="keyword">await</span> inquirer.prompt([</span><br><span class="line">        &#123;</span><br><span class="line">            type: <span class="string">"confirm"</span>,</span><br><span class="line">            name: <span class="string">"isSure"</span>,</span><br><span class="line">            message: <span class="string">`Are you sure to publish <span class="subst">$&#123;packageName&#125;</span>?`</span>,</span><br><span class="line">            <span class="keyword">default</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    ]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isSure) &#123;</span><br><span class="line">        <span class="keyword">return</span> packageName;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> getPackageNameAsync(packageNames);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><p>待实际场景验证可靠性及实用性。</p>
 
           
         
@@ -542,8 +537,8 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lizhengshuwayne">
-      <meta itemprop="description" content="You yu jiu hui bai bei!">
-      <meta itemprop="image" content="/images/searchicon.png">
+      <meta itemprop="description" content="Hello World!">
+      <meta itemprop="image" content="/images/head.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -717,10 +712,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/searchicon.png" alt="lizhengshuwayne">
+              <img class="site-author-image" itemprop="image" src="/images/head.jpg" alt="lizhengshuwayne">
             
               <p class="site-author-name" itemprop="name">lizhengshuwayne</p>
-              <div class="site-description motion-element" itemprop="description">You yu jiu hui bai bei!</div>
+              <div class="site-description motion-element" itemprop="description">Hello World!</div>
           </div>
 
           
